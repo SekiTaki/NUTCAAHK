@@ -3,10 +3,10 @@ require("dotenv").config({
 });
 
 const contentfulConfig = {
-  spaceId: process.env.GATSBY_CONTENTFUL_SPACE_ID,
+  spaceId: process.env.CONTENTFUL_SPACE_ID,
   accessToken:
-    process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN ||
-    process.env.GATSBY_CONTENTFUL_DELIVERY_TOKEN,
+    process.env.CONTENTFUL_ACCESS_TOKEN ||
+    process.env.CONTENTFUL_DELIVERY_TOKEN,
 };
 
 // If you want to use the preview API please define
@@ -50,5 +50,16 @@ module.exports = {
       resolve: "gatsby-source-contentful",
       options: contentfulConfig,
     },
+
+    'gatsby-plugin-offline',
+    {
+      resolve: `gatsby-plugin-schema-snapshot`,
+      options: {
+        path: `./src/gatsby/schema/schema.gql`,
+        update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
+      },
+    },
+    'gatsby-plugin-netlify',
+
   ],
 };
